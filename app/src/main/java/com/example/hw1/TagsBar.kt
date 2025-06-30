@@ -11,16 +11,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun tagsBar() {
+fun TagsBar(tags: List<String>?) {
     Row(modifier = Modifier.padding(16.dp)) {
-        tagChip("barcelona")
-        Spacer(modifier = Modifier.width(8.dp))
-        tagChip("spain")
+        tags?.take(2)?.forEachIndexed { index, tag ->
+            TagChip(tag)
+            if (index != 1) Spacer(modifier = Modifier.width(8.dp))
+        } ?: run {
+            TagChip("-")
+        }
     }
 }
 
 @Composable
-fun tagChip(text: String) {
+fun TagChip(text: String) {
     Box(
         modifier = Modifier
             .background(Color.DarkGray, shape = RoundedCornerShape(16.dp))
@@ -31,7 +34,7 @@ fun tagChip(text: String) {
 }
 
 @Composable
-fun StatsRow() {
+fun StatsRow(views: Int?, downloads: Int?, likes: Int?) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -40,15 +43,15 @@ fun StatsRow() {
     ) {
         Column {
             Text("Views", color = Color.Gray, fontSize = 12.sp)
-            Text("8.8M", color = Color.White)
+            Text(views?.toString() ?: "-", color = Color.White)
         }
         Column {
             Text("Downloads", color = Color.Gray, fontSize = 12.sp)
-            Text("99.1K", color = Color.White)
+            Text(downloads?.toString() ?: "-", color = Color.White)
         }
         Column {
             Text("Likes", color = Color.Gray, fontSize = 12.sp)
-            Text("1.8K", color = Color.White)
+            Text(likes?.toString() ?: "-", color = Color.White)
         }
     }
 }

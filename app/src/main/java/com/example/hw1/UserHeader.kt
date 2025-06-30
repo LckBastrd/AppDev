@@ -11,25 +11,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
+import androidx.compose.ui.res.painterResource
 
 @Composable
-fun userHeader() {
+fun UserHeader(userName: String, avatarUrl: String?) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(horizontal = 16.dp)
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.avatar),
+            painter = rememberAsyncImagePainter(avatarUrl ?: ""),
             contentDescription = "Profile",
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Text("Biel Morro", color = Color.White, fontSize = 16.sp)
+        Text(userName, color = Color.White, fontSize = 16.sp)
 
         Spacer(modifier = Modifier.weight(1f))
 
